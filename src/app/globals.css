@@ -1,4 +1,89 @@
 @import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap');
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  font-family: 'Montserrat', sans-serif;
+}
+
+body {
+  font-family: 'Montserrat', sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
+}
+
+/* Loading animation */
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-spin {
+  animation: spin 1s linear infinite;
+}
+
+/* Custom utilities */
+.font-montserrat {
+  font-family: 'Montserrat', sans-serif;
+}
+
+/* Focus styles */
+.focus-primary:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+/* Button hover animations */
+.btn-hover {
+  transition: all 0.2s ease-in-out;
+}
+
+.btn-hover:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Card hover effect */
+.card-hover {
+  transition: all 0.2s ease-in-out;
+}
+
+.card-hover:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
+
+/* Notification sound setup */
+audio {
+  display: none;
+}
+
+/* @import "tailwindcss";
 
 :root {
   --background: #ffffff;
@@ -23,4 +108,4 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
-}
+} */
