@@ -1,13 +1,11 @@
 import { NextRequest } from 'next/server';
-
-// Import clients from webhook route
-const clients = new Set<ReadableStreamDefaultController>();
+import { addClient, removeClient } from '@/app/lib/api';
 
 export async function GET(request: NextRequest) {
   const stream = new ReadableStream({
     start(controller) {
       // Add client to the set
-      clients.add(controller);
+      addClient(controller);
 
       // Send initial connection message
       controller.enqueue(
@@ -16,7 +14,7 @@ export async function GET(request: NextRequest) {
 
       // Handle client disconnect
       request.signal.addEventListener('abort', () => {
-        clients.delete(controller);
+        removeClient(controller);
         controller.close();
       });
     },
@@ -32,5 +30,3 @@ export async function GET(request: NextRequest) {
     },
   });
 }
-
-export { clients };

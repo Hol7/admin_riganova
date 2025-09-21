@@ -178,3 +178,27 @@ export const healthApi = {
     return response.data;
   },
 };
+
+
+const clients = new Set<ReadableStreamDefaultController>();
+
+export function addClient(controller: ReadableStreamDefaultController) {
+  clients.add(controller);
+}
+
+export function removeClient(controller: ReadableStreamDefaultController) {
+  clients.delete(controller);
+}
+
+export function broadcastToClients(notification: any) {
+  clients.forEach((controller) => {
+    try {
+      controller.enqueue(
+        new TextEncoder().encode(`data: ${JSON.stringify(notification)}\n\n`)
+      );
+    } catch (error) {
+      // Remove disconnected clients
+      clients.delete(controller);
+    }
+  });
+}

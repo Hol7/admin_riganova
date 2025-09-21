@@ -1,7 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-
-// Simple in-memory storage for connected clients
-const clients = new Set<ReadableStreamDefaultController>();
+import { broadcastToClients } from '@/app/lib/api';
 
 export async function POST(request: NextRequest) {
   try {
@@ -44,16 +42,7 @@ export async function POST(request: NextRequest) {
     };
 
     // Send notification to all connected SSE clients
-    clients.forEach((controller) => {
-      try {
-        controller.enqueue(
-          new TextEncoder().encode(`data: ${JSON.stringify(notification)}\n\n`)
-        );
-      } catch (error) {
-        // Remove disconnected clients
-        clients.delete(controller);
-      }
-    });
+    broadcastToClients(notification);
 
     return NextResponse.json({ success: true, message: 'Notification sent' });
   } catch (error) {
@@ -61,6 +50,3 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
   }
 }
-
-// Export clients for use in SSE endpoint
-export { clients };
