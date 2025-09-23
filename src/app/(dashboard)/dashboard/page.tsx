@@ -43,7 +43,7 @@ export default function DashboardPage() {
     },
     {
       title: 'Revenus du Mois',
-      value: `${stats?.monthly_revenue || 0}€`,
+      value: `${stats?.monthly_revenue || 0}FCFA`,
       icon: TrendingUp,
       color: 'bg-purple-500',
       change: '+15%',
@@ -178,7 +178,7 @@ export default function DashboardPage() {
                         {delivery.statut.replace(/_/g, ' ').toUpperCase()}
                       </span>
                       <span className="text-sm font-montserrat font-semibold text-gray-900">
-                        {delivery.prix}€
+                        {delivery.prix}FCFA
                       </span>
                     </div>
                   </div>

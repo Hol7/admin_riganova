@@ -290,7 +290,7 @@ export default function StatsPage() {
                   <BarChart3 className="w-8 h-8 text-primary-600" />
                 </div>
                 <p className="text-2xl font-montserrat font-bold text-gray-900 mb-1">
-                  {stats?.monthly_revenue || 0}€
+                  {stats?.monthly_revenue || 0}FCFA
                 </p>
                 <p className="text-sm font-montserrat font-medium text-gray-600">
                   Revenus du Mois

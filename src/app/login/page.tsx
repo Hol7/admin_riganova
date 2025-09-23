@@ -119,7 +119,7 @@ export default function LoginPage() {
             <button
               type="submit"
               disabled={loginMutation.isPending}
-              className="w-full bg-primary-500 hover:bg-primary-600 text-white font-montserrat font-semibold py-3 px-4 rounded-xl transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full bg-yellow-500 hover:bg-yellow-600 text-white font-montserrat font-semibold py-3 px-4 rounded-xl transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {loginMutation.isPending ? (
                 <div className="flex items-center justify-center">
