@@ -1,7 +1,7 @@
 
 
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import toast from 'react-hot-toast';
 
 interface DeliveryNotification {
@@ -13,6 +13,7 @@ interface DeliveryNotification {
 export const useNotifications = () => {
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const eventSourceRef = useRef<EventSource | null>(null);
+  const [items, setItems] = useState<DeliveryNotification[]>([]);
 
   const playNotificationSound = () => {
     if (audioRef.current) {
@@ -22,8 +23,7 @@ export const useNotifications = () => {
 
   useEffect(() => {
     // Initialize audio
-    audioRef.current = new Audio('/sound.mp3');
-    // audioRef.current = new Audio('');
+    audioRef.current = new Audio('/sounds/new-request.mp3');
     audioRef.current.volume = 0.7;
 
     // Ask for browser notification permission if not decided yet
@@ -41,6 +41,7 @@ export const useNotifications = () => {
     eventSource.onmessage = (event) => {
       try {
         const notification: DeliveryNotification = JSON.parse(event.data);
+        setItems((prev) => [notification, ...prev]);
         
         // Play sound for new deliveries
         if (notification.type === 'new_delivery') {
@@ -87,5 +88,6 @@ export const useNotifications = () => {
 
   return {
     playNotificationSound,
+    items,
   };
 };

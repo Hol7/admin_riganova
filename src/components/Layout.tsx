@@ -4,6 +4,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useAuthStore } from '@/app/stores/authStore';
+import { useNotifications } from '@/app/hooks/useNotifications';
 import {
   Menu,
   X,
@@ -32,6 +33,7 @@ export default function Layout({ children }: LayoutProps) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const pathname = usePathname();
   const { user, logout } = useAuthStore();
+  const { items } = useNotifications();
 
   const handleLogout = () => {
     logout();
@@ -136,10 +138,12 @@ export default function Layout({ children }: LayoutProps) {
             </button>
             
             <div className="flex items-center space-x-4 ml-auto">
-              <button className="relative p-2 text-gray-400 hover:text-gray-600 rounded-full hover:bg-gray-100">
+              <Link href="/notifications" className="relative p-2 text-gray-400 hover:text-gray-600 rounded-full hover:bg-gray-100">
                 <Bell className="w-5 h-5" />
-                <span className="absolute -top-1 -right-1 w-3 h-3 bg-red-500 rounded-full"></span>
-              </button>
+                {items && items.length > 0 && (
+                  <span className="absolute -top-1 -right-1 w-3 h-3 bg-red-500 rounded-full"></span>
+                )}
+              </Link>
               
               <div className="hidden sm:flex items-center">
                 <div className="w-8 h-8 bg-accent-400 rounded-full flex items-center justify-center mr-2">

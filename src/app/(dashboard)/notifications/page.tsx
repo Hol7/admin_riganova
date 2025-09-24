@@ -3,7 +3,7 @@
 import { useNotifications } from '@/app/hooks/useNotifications';
 
 export default function NotificationsPage() {
-  const { playNotificationSound } = useNotifications();
+  const { playNotificationSound, items } = useNotifications();
 
   return (
     <div className="space-y-6">
@@ -18,11 +18,30 @@ export default function NotificationsPage() {
       </div>
 
       <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
-        <p className="text-sm text-gray-600 font-montserrat">
-          Les nouvelles demandes de livraison déclencheront une alerte sonore si votre navigateur l'autorise.
-          Assurez-vous d'avoir interagi au moins une fois avec la page (bouton "Tester le son").
-        </p>
+        {items.length === 0 ? (
+          <div className="text-center py-8">
+            <p className="text-gray-500 font-montserrat">Pas de notifications</p>
+            <p className="text-sm text-gray-400 font-montserrat mt-1">Elles apparaîtront ici dès qu'un événement sera reçu.</p>
+          </div>
+        ) : (
+          <ul className="space-y-3">
+            {items.map((n, idx) => (
+              <li key={idx} className="p-4 rounded-xl border border-gray-100 bg-gray-50">
+                <div className="flex items-center justify-between">
+                  <div className="font-montserrat font-semibold text-gray-900">
+                    {n.type === 'new_delivery' && 'Nouvelle livraison'}
+                    {n.type === 'status_update' && 'Mise à jour de statut'}
+                    {n.type === 'assignment' && 'Assignation livreur'}
+                  </div>
+                  <div className="text-xs font-montserrat text-gray-500">{(n as any).timestamp || ''}</div>
+                </div>
+                <div className="text-sm font-montserrat text-gray-700 mt-1">{n.message}</div>
+              </li>
+            ))}
+          </ul>
+        )}
       </div>
     </div>
   );
 }
+

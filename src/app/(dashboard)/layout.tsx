@@ -4,6 +4,7 @@ import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuthStore } from '@/app/stores/authStore';
 import Layout from '@/components/Layout';
+import { useNotifications } from '@/app/hooks/useNotifications';
 
 export default function DashboardLayout({
   children,
@@ -12,6 +13,8 @@ export default function DashboardLayout({
 }) {
   const router = useRouter();
   const { isAuthenticated, user } = useAuthStore();
+  // Initialize notifications globally for all dashboard pages
+  useNotifications();
 
   useEffect(() => {
     if (!isAuthenticated) {
