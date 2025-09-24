@@ -229,7 +229,7 @@ export default function DeliveriesPage() {
         ) : filteredDeliveries.length > 0 ? (
           <div className="overflow-visible">
             {/* Desktop view */}
-            <div className="hidden md:block overflow-x-auto">
+            <div className="hidden md:block overflow-x-auto h-screen">
               <table className="w-full">
                 <thead className="bg-gray-50">
                   <tr>
